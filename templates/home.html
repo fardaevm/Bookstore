@@ -1,9 +1,21 @@
 {% extends '_base.html' %}
-
+{% load static %}
 {% block title %}
 	Home
 {% endblock %}
 
 {% block content %}
-    <h1>This is our home page</h1>
-{% endblock %}
+    <div class="hero" style="background-image: url('{% static "images/background.jpg" %}');">
+        <div class="container">
+            <h1>Welcome to Booklet</h1>
+            <p>Your one-stop destination for all your reading needs.</p>
+            <a class="btn btn-primary btn-lg" href="{% url 'about' %}" role="button">Learn More</a>
+        </div>
+    </div>
+
+    <div class="bg-dark text-light text-center py-5 mt-0">
+        <h2>Join our Newsletter</h2>
+        <p class="mb-4">Subscribe now to get the latest book releases and offers.</p>
+        <a class="btn btn-outline-light btn-lg" href="#">Subscribe</a>
+    </div>
+{% endblock content %}
