@@ -9,6 +9,14 @@ services:
       - "8000:8000"
     depends_on:
       - db
+    environment:
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
+      DJANGO_DEBUG: ${DJANGO_DEBUG}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+      
+    env_file:
+      - .env
   db:
     image: postgres:13
     volumes:
