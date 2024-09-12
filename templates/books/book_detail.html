@@ -1,8 +1,14 @@
 {% extends '_base.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
     <div class="container pt-5">
         <!-- Book details -->
         <div class="book-details mb-5">
+            {% if book.cover %}
+                <div class="col-md-4">
+                    <img class="img-fluid rounded shadow" src="{{ book.cover.url }}" alt="{{ book.title }}">
+                </div>
+            {% endif %}
             <h2>{{ book.title }}</h2>
             <p><strong>Author:</strong> {{ book.author }}</p>
             <p><strong>Price:</strong> ${{ book.price }}</p>
@@ -41,7 +47,7 @@
                 </div>
             </div>
         {% else %}
-            <p class="mt-4"><a href="{% url 'account_login' %}" class="btn btn-outline-secondary">Log in</a> to write a review.</p>
+            <p class="mt-4"><a href="{% url 'account_login' %}">Log in</a> to write a review.</p>
         {% endif %}
     </div>
 

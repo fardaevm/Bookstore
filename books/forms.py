@@ -5,10 +5,13 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = ['review']
+        labels = {
+            'review': ''
+        }
         widgets = {
             'review': forms.Textarea(attrs={
                 'class': 'form-control',
                 'rows': 4,
-                'placeholder': 'Write your review here...'
+                'placeholder': 'Write your review here...',
             })
         }

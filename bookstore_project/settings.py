@@ -195,3 +195,11 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 
+#timezone config
+TIME_ZONE = 'America/Los_Angeles'
+USE_TZ = True
+
+# media config
+MEDIA_ROOT = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
+
