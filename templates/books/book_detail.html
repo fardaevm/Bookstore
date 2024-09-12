@@ -1,21 +1,69 @@
 {% extends '_base.html' %}
-{% block title %}
-	{{ book.title }}
-{% endblock %}
-
 {% block content %}
-	<div class="container pt-5">
-        <h2><a href="">{{ book.title }}</a></h2>
-        <p>Author: {{ book.author }}</p>
-        <p>Price: {{ book.price }}</p>
-
-        <div>
-            <h3>Reviews</h3>
-            <ul>
-                {% for review in book.reviews.all %}
-                    <li>{{ review.review }}({{ review.author }})</li>
-                {% endfor %}
-            </ul>
+    <div class="container pt-5">
+        <!-- Book details -->
+        <div class="book-details mb-5">
+            <h2>{{ book.title }}</h2>
+            <p><strong>Author:</strong> {{ book.author }}</p>
+            <p><strong>Price:</strong> ${{ book.price }}</p>
         </div>
+        <hr>
+        <!-- Reviews section -->
+        <div class="reviews-section">
+            <h4>Reviews:</h4>
+            <div class="reviews-list">
+                {% for review in reviews %}
+                    <div class="review mb-4 p-3 border rounded" style="background-color: #f9f9f9;">
+                        <strong>{{ review.author.username }}</strong>
+                        <p class="mt-2">{{ review.review }}</p>
+                        <small class="text-muted">Reviewed on {{ review.created_at }}</small>
+                    </div>
+                {% empty %}
+                    <p>No reviews yet. Be the first to write one!</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Write a review section for logged-in users -->
+        {% if user.is_authenticated %}
+            <div class="write-review-section">
+                <button id="write-review-btn" class="btn btn-primary mt-4">Write a Review</button>
+
+                <div id="review-form-container" class="mt-4 p-3 border rounded" style="display: none; background-color: #f1f1f1;">
+                    <h5>Leave a Review:</h5>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-success mt-2">Submit Review</button>
+                    </form>
+                </div>
+            </div>
+        {% else %}
+            <p class="mt-4"><a href="{% url 'account_login' %}" class="btn btn-outline-secondary">Log in</a> to write a review.</p>
+        {% endif %}
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var writeReviewBtn = document.getElementById('write-review-btn');
+            var reviewForm = document.getElementById('review-form-container');
+
+            // Add a console log to check if button is detected
+            {#console.log("JavaScript is running");#}
+
+            writeReviewBtn.addEventListener('click', function () {
+                if (reviewForm.style.display === 'none') {
+                    reviewForm.style.display = 'block';
+                    writeReviewBtn.textContent = 'Hide Review Form';
+                } else {
+                    reviewForm.style.display = 'none';
+                    writeReviewBtn.textContent = 'Write a Review';
+                }
+            });
+        });
+    </script>
 {% endblock %}
+
+
