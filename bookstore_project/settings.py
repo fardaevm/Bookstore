@@ -148,7 +148,6 @@ AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
 )
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 
@@ -181,4 +180,17 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 SOCIALACCOUNT_LOGIN_ON_GET = True
+
+# Email Confirmation
+
+# EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+DEFAULT_FROM_EMAIL = "fardayev22@gmail.com"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+SENDGRID_API_KEY = env.str("SENDGRID_API_KEY")
+EMAIL_HOST_PASSWORD = env.str("SENDGRID_API_KEY")
+EMAIL_HOST = "smtp.sendgrid.net"
+EMAIL_HOST_USER = "apikey"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
 
